@@ -27,7 +27,7 @@
 
 /**
  * get the sections in the page.
- * @returns {Object}
+ * @returns {NodeList}
  */
 const getSections = () => {
     return document.querySelectorAll('section');
@@ -35,8 +35,8 @@ const getSections = () => {
 
 /**
  * create the nav bar links
- * @param {Object} sections 
- * @returns {Object}
+ * @param {NodeList} sections 
+ * @returns {DocumentFragment}    
  */
 const createNavLinks = sections => {
     const navLinks = document.createDocumentFragment();
@@ -54,12 +54,26 @@ const createNavLinks = sections => {
 
 /**
  * insert the nave links into the DOM
- * @param {Object} navLinks 
+ * @param {Node} navLinks 
  */
 const insertNavLinks = navLinks => {
     const navList = document.getElementById('navbar__list');
     navList.appendChild(navLinks);
-    return;
+};
+
+/** 
+ * Determine if an element is in the viewport
+ * @param  {Node} element
+ * @return {Boolean} Returns true if element is in the viewport
+ */
+const isInViewport = element => {
+    const distance = element.getBoundingClientRect();   
+	return (
+		distance.top >= 0 &&
+		distance.left >= 0 &&
+		distance.top <= (window.innerHeight || document.documentElement.clientHeight)*0.4 &&
+		distance.right <= (window.innerWidth || document.documentElement.clientWidth)
+	);
 };
 
 
@@ -70,11 +84,9 @@ const insertNavLinks = navLinks => {
 */
 
 // build the nav
-const navlinks = createNavLinks(getSections());
+const sections = getSections();
+const navlinks = createNavLinks(sections);
 insertNavLinks(navlinks);
-
-// Add class 'active' to section when near top of viewport
-
 
 // Scroll to anchor ID using scrollTO event
 
@@ -85,10 +97,19 @@ insertNavLinks(navlinks);
  * 
 */
 
-// Build menu 
-
 // Scroll to section on link click
 
 // Set sections as active
-
+let activeSection = null;
+document.addEventListener('scroll', () => {
+    for(section of sections) {
+        if(isInViewport(section) && section !== activeSection) {
+            if(activeSection){
+                activeSection.classList.remove('your-active-class');
+            }
+            section.classList.toggle('your-active-class');
+            activeSection = section;
+        }
+    }
+});
 
