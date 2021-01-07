@@ -44,7 +44,11 @@ const createNavLinks = sections => {
         const listItem = document.createElement('li');
         const anchor = document.createElement('a');
         anchor.classList.add('menu__link');
+        // set href if want to use the anchor functionality
         anchor.href = '#' + section.id;
+        // set data-section-id if want to use the click event to scroll 
+        //(this is what we will do)
+        anchor.dataset.sectionId = section.id;
         anchor.textContent = section.dataset.nav;
         listItem.appendChild(anchor);
         navLinks.appendChild(listItem);
@@ -76,7 +80,6 @@ const isInViewport = element => {
 	);
 };
 
-
 /**
  * End Helper Functions
  * Begin Main Functions
@@ -98,6 +101,19 @@ insertNavLinks(navlinks);
 */
 
 // Scroll to section on link click
+const navList = document.querySelector('#navbar__list');
+navList.addEventListener('click', event => {
+    if(event.target.nodeName === 'A') {
+        event.preventDefault();
+        let targetSection = null;
+        for(section of sections) {
+            if(event.target.dataset.sectionId === section.id) {
+                targetSection = section;
+            }
+        }
+        targetSection.scrollIntoView({top: 0, behavior: 'smooth'});
+    }
+});
 
 // Set sections as active
 let activeSection = null;
