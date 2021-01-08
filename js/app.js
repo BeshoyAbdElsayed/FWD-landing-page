@@ -14,26 +14,6 @@
 */
 
 /**
- * Define Global Variables
- * 
-*/
-
-
-/**
- * End Global Variables
- * Start Helper Functions
- * 
-*/
-
-/**
- * get the sections in the page.
- * @returns {NodeList}
- */
-const getSections = () => {
-    return document.querySelectorAll('section');
-};
-
-/**
  * create the nav bar links
  * @param {NodeList} sections 
  * @returns {DocumentFragment}    
@@ -87,12 +67,9 @@ const isInViewport = element => {
 */
 
 // build the nav
-const sections = getSections();
+const sections = document.querySelectorAll('section');
 const navlinks = createNavLinks(sections);
 insertNavLinks(navlinks);
-
-// Scroll to anchor ID using scrollTO event
-
 
 /**
  * End Main Functions
@@ -102,6 +79,7 @@ insertNavLinks(navlinks);
 
 // Scroll to section on link click
 const navList = document.querySelector('#navbar__list');
+
 navList.addEventListener('click', event => {
     if(event.target.nodeName === 'A') {
         event.preventDefault();
@@ -115,8 +93,9 @@ navList.addEventListener('click', event => {
     }
 });
 
-// Set sections as active
+// Set sections as active and its nav link as active
 let activeSection = null;
+let activeLink = null;
 document.addEventListener('scroll', () => {
     for(section of sections) {
         if(isInViewport(section) && section !== activeSection) {
@@ -125,7 +104,17 @@ document.addEventListener('scroll', () => {
             }
             section.classList.toggle('your-active-class');
             activeSection = section;
+
+            //set active link 
+            if(activeLink) {
+                activeLink.classList.remove('active__link');
+                // activeLink.classList.add('menu__link');
+            }
+            activeLink = document.querySelector(`[data-section-id="${activeSection.id}"]`);
+            // activeLink.classList.remove('menu__link');
+            activeLink.classList.add('active__link');
         }
     }
+    
 });
 
