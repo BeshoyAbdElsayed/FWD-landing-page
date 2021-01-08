@@ -136,7 +136,6 @@ let mouseOnNav = false;
 let hoverTimeout = null;
 let height = navbar.scrollHeight; 
 document.addEventListener('pointermove', (event) => {
-    console.log(height);
     if(event.clientY <= height) {
         height = navbar.scrollHeight;
         navbar.style.maxHeight = 'fit-content';
