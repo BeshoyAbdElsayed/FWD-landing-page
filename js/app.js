@@ -118,10 +118,9 @@ document.addEventListener('scroll', () => {
 //hide nav bar while not scrolling
 let timeout = null;
 const navbar = document.querySelector('nav ul');
-const height = navbar.scrollHeight; 
 document.addEventListener('scroll', () => {
-    if(window.scrollY > 50) {
-        navbar.style.maxHeight = height + 'px';
+    if(window.scrollY > 50 && ! mouseOnNav) {
+        navbar.style.maxHeight = 'fit-content';
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             navbar.style.maxHeight = 0;
@@ -135,9 +134,12 @@ document.addEventListener('scroll', () => {
 //show nav bar while hovering on the top of the view port
 let mouseOnNav = false;
 let hoverTimeout = null;
+let height = navbar.scrollHeight; 
 document.addEventListener('pointermove', (event) => {
+    console.log(height);
     if(event.clientY <= height) {
-        navbar.style.maxHeight = height + 'px';
+        height = navbar.scrollHeight;
+        navbar.style.maxHeight = 'fit-content';
         mouseOnNav = true;
     }
     else if(mouseOnNav) {
@@ -145,7 +147,7 @@ document.addEventListener('pointermove', (event) => {
             clearTimeout(hoverTimeout);
             hoverTimeout = setTimeout(() => {
                 navbar.style.maxHeight = 0;
-            }, 500);
+            }, 1000);
         }
         mouseOnNav = false;
     }
@@ -170,7 +172,7 @@ topButton.addEventListener('click', () => {
     activeLink.classList.remove('active__link');
     activeSection = activeLink = null;
     //show nav bar
-    navbar.style.maxHeight = height + 'px';
+    navbar.style.maxHeight = 'fit-content';
 
 });
 
