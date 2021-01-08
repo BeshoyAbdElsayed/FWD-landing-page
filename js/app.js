@@ -132,3 +132,15 @@ document.addEventListener('scroll', () => {
     }
 });
 
+//show nav bar while hovering on the top of the view port
+document.addEventListener('pointermove', (event) => {
+    if(event.clientY <= height) {
+        navbar.style.maxHeight = height + 'px';
+    }
+    else {
+        if(window.scrollY > 50) {
+            navbar.style.maxHeight = 0;
+        }
+    }
+});
+
