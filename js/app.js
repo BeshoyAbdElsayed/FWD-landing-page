@@ -151,3 +151,26 @@ document.addEventListener('pointermove', (event) => {
     }
 });
 
+//show the go to top button when not in the top of the view port
+const topButton = document.querySelector('.top__button');
+document.addEventListener('scroll', () => {
+    if(window.scrollY > window.innerHeight / 2) {
+        topButton.style.display = 'block';
+    }
+    else {
+        topButton.style.display = 'none';
+    }
+});
+
+// go to top when clicking the go to top button
+topButton.addEventListener('click', () => {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    //reset active class on section and navlinks
+    activeSection.classList.remove('your-active-class');
+    activeLink.classList.remove('active__link');
+    activeSection = activeLink = null;
+    //show nav bar
+    navbar.style.maxHeight = height + 'px';
+
+});
+
