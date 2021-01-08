@@ -138,7 +138,7 @@ document.addEventListener('pointermove', (event) => {
         navbar.style.maxHeight = height + 'px';
     }
     else {
-        if(window.scrollY > 50) {
+        if(window.scrollY > 50 && ! navbar.style.maxHeight) {
             navbar.style.maxHeight = 0;
         }
     }
