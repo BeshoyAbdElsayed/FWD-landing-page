@@ -68,10 +68,17 @@ section {
 /* ---- Module Rules ---- */
 
 /* Navigation Styles*/
+.hide__nav {
+    display: none !important;
+    transition: ease 0.3s all;
+}
+
 .navbar__menu ul {
     padding-left: 0;
     margin: 0;
     text-align: right;
+    overflow: hidden !important;
+    transition: ease 0.3s all;
 }
 
 .navbar__menu li {

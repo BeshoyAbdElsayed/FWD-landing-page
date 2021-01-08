@@ -108,13 +108,27 @@ document.addEventListener('scroll', () => {
             //set active link 
             if(activeLink) {
                 activeLink.classList.remove('active__link');
-                // activeLink.classList.add('menu__link');
             }
             activeLink = document.querySelector(`[data-section-id="${activeSection.id}"]`);
-            // activeLink.classList.remove('menu__link');
             activeLink.classList.add('active__link');
         }
     }
-    
+});
+
+//hide nav bar while not scrolling
+let timeout = null;
+const navbar = document.querySelector('nav ul');
+const height = navbar.scrollHeight; 
+document.addEventListener('scroll', () => {
+    if(window.scrollY > 50) {
+        navbar.style.maxHeight = height + 'px';
+        clearTimeout(timeout);
+        timeout = setTimeout(() => {
+            navbar.style.maxHeight = 0;
+        }, 1500)        
+    }
+    else {
+        clearTimeout(timeout);
+    }
 });
 
