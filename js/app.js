@@ -125,7 +125,7 @@ document.addEventListener('scroll', () => {
         clearTimeout(timeout);
         timeout = setTimeout(() => {
             navbar.style.maxHeight = 0;
-        }, 1500)        
+        }, 1000)        
     }
     else {
         clearTimeout(timeout);
@@ -133,14 +133,21 @@ document.addEventListener('scroll', () => {
 });
 
 //show nav bar while hovering on the top of the view port
+let mouseOnNav = false;
+let hoverTimeout = null;
 document.addEventListener('pointermove', (event) => {
     if(event.clientY <= height) {
         navbar.style.maxHeight = height + 'px';
+        mouseOnNav = true;
     }
-    else {
-        if(window.scrollY > 50 && ! navbar.style.maxHeight) {
-            navbar.style.maxHeight = 0;
+    else if(mouseOnNav) {
+        if(window.scrollY > 50) {
+            clearTimeout(hoverTimeout);
+            hoverTimeout = setTimeout(() => {
+                navbar.style.maxHeight = 0;
+            }, 500);
         }
+        mouseOnNav = false;
     }
 });
 
