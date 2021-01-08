@@ -2,12 +2,19 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Introduction](#introduction)
+* [Features](#features)
 
-## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+## Introduction
 
-To get started, open `js/app.js` and start building out the app's functionality
+This project is a single page multi section landing page built with HTML, CSS and JavaScript.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+## Features
+
+- Build the navigation bar dynamically.
+- Indecate which section is in dispalay with an active class.
+- Indecate which navigation link is active with an active class.
+- Hide navigation bar when not scrolling or mouse not hovering over the top. it.
+- A Go to the Top button.
+
